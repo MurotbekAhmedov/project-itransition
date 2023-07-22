@@ -4,11 +4,14 @@ import { LinksPage } from "./pages/LinksPage";
 import { CreatePage } from "./pages/CreatePage";
 import { DetailPage } from "./pages/DetailPage";
 import { AuthPage } from "./pages/AuthPage";
+import { CollectionsPage } from "./pages/CollectionsPage";
+
 
 export const useRoutes = isAuthenticated =>{
     if (isAuthenticated) {
         return (
             <Routes >
+                 <Route path="/collections" element={<CollectionsPage />} exact></Route>
                 <Route path="/links" element={<LinksPage />} exact>
 
                 </Route>
@@ -18,19 +21,22 @@ export const useRoutes = isAuthenticated =>{
                 <Route path="/detail/:id" element={<DetailPage />} >
 
                 </Route>
-                <Route path="/" element={<Navigate  to="/create"></Navigate >} exact>
+                <Route path="/" element={<Navigate  to="/collections"></Navigate >} exact>
 
                 </Route>
+                <Route path="/auth" element={<Navigate  to="/collections"></Navigate >} exact>
 
+                </Route>
             </Routes >
         )
     }
     return (
         <Routes >
-            <Route path="/" element={<AuthPage />} exact>
+            <Route path="/collections" element={<CollectionsPage />} exact></Route>
+            {!isAuthenticated && <Route path="/auth" element={<AuthPage />} exact></Route>}
 
-            </Route>
-            <Route path="/" element={<Navigate  to="/"></Navigate >} exact>
+
+            <Route path="/" element={<Navigate  to="/collections"></Navigate >} exact>
 
             </Route>
 
